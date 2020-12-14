@@ -1,7 +1,7 @@
 //create class of calculator for button commands
 
-class calculator{
-    constructor(previousOperandTextElement, currentOperandTextElement)  {
+class calculator {
+    constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement;
         this.currentOperandTextElement = currentOperandTextElement;
     }
@@ -12,22 +12,30 @@ class calculator{
         this.operation = undefined;
     }
 
-    delete()    {   
+    delete() {
 
     }
 
-    apendNumber(number) {
+    appendNumber(number) {
+        if (number === "." && this.currentOperand.includes('.')
+        ) return;
+        this.currentOperand = this.currentOperand.toString() + number.toString();
 
     }
 
-    chooseOperation(operation)   {
+    chooseOperation(operation) {
+        this.operation = operation;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = '';
 
     }
-    compute()   {
+    compute() {
 
     }
 
     updateDisplay() {
+        this.currentOperandTextElement.innerText = this.currentOperand;
+        this.previousOperandTextElement.innerText = this.previousOperand;
 
     }
 }
@@ -43,11 +51,19 @@ var previousOperandTextElement = document.querySelectorAll('[data_previous_opera
 var currentOperandTextElement = document.querySelectorAll('[data_current_operand]')
 
 //create calculator variable and then create function for number buttons to work on click
-var calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
+var calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
 
 numberButtons.forEach(button => {
-    button.addEventListener('click', () =>  {
+    button.addEventListener('click', () => {
         calculator.appendNumber(button.innerText)
+        calculator.updateDisplay()
+
+    })
+})
+
+operationButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.chooseOperation(button.innerText)
         calculator.updateDisplay()
 
     })
