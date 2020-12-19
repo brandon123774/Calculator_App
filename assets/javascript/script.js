@@ -1,6 +1,6 @@
 //create class of calculator for button commands
 
-class calculator {
+class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement;
         this.currentOperandTextElement = currentOperandTextElement;
@@ -19,16 +19,15 @@ class calculator {
     }
 
     appendNumber(number) {
-        if (number === '.' && this.currentOperand.includes('.')
-        ) 
-        return;
+        if (number === '.' && this.currentOperand.includes('.'))
+            return
         this.currentOperand = this.currentOperand.toString() + number.toString();
 
     }
 
     chooseOperation(operation) {
-        if (this.currentOperand === '') return;
-        if (this.previousOperand !=='')   {
+        if (this.currentOperand === '') return
+        if (this.previousOperand !== '') {
             this.compute();
         }
         this.operation = operation;
@@ -43,20 +42,20 @@ class calculator {
         var current = parseFloat(this.currentOperand);
         if (isNaN(prev) || isNaN(current)) return;
         switch (this.operation) {
-            case '+': 
+            case '+':
                 computation = prev + current;
                 break;
-            case '-': 
+            case '-':
                 computation = prev - current;
                 break;
-            case '*': 
+            case '*':
                 computation = prev * current;
                 break;
-            case '÷': 
+            case '÷':
                 computation = prev / current;
                 break;
-            default: 
-            return;
+            default:
+                return;
         }
         this.currentOperand = computation;
         this.operation = undefined;
@@ -64,19 +63,19 @@ class calculator {
 
     }
 
-    getDisplayNumber(number)    {
+    getDisplayNumber(number) {
         var stringNumber = number.toSting();
-        var integerDigits = parseFloat(stringNumber.split('.')[0])
-        var decimalDigits = stringNumber.split('.')[1]
-        var intergerDisplay 
-        if(isNaN(integerDigits))    {
+        var integerDigits = parseFloat(stringNumber.split('.')[0]);
+        var decimalDigits = stringNumber.split('.')[1];
+        var intergerDisplay;
+        if (isNaN(integerDigits)) {
             intergerDisplay = '';
-        } else{
-            intergerDisplay = intergerDisplay.toLocaleString('en', {maximumFractionDigits: 0})
+        } else {
+            intergerDisplay = intergerDisplay.toLocaleString('en', { maximumFractionDigits: 0 })
         }
-        if (decimalDigits != null)  {
+        if (decimalDigits != null) {
             return `${intergerDisplay}.${decimalDigits}`
-        }   else{
+        } else {
             return intergerDisplay;
         }
 
@@ -87,12 +86,12 @@ class calculator {
     }
 
     updateDisplay() {
-        this.currentOperandTextElement.innerText = 
-        this.getDisplayNumber(this.currentOperand);
+        this.currentOperandTextElement.innerText =
+            this.getDisplayNumber(this.currentOperand);
         if (this.operation != null) {
-            this.previousOperandTextElement.innerText = 
-            `${this.previousOperand} ${this.operation}`
-        } else  {
+            this.previousOperandTextElement.innerText =
+                `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`
+        } else {
             this.previousOperandTextElement.innerText = '';
         }
     }
@@ -128,17 +127,17 @@ operationButtons.forEach(button => {
 })
 
 
-equalsButton.addEventListener('click', button =>   {
-    calculator.compute();
-    calculator.updateDisplay();
+equalsButton.addEventListener('click', button => {
+    calculator.compute()
+    calculator.updateDisplay()
 })
 
-allClearButton.addEventListener('click', button =>   {
+allClearButton.addEventListener('click', button => {
     calculator.clear();
     calculator.updateDisplay();
 })
 
-deleteButton.addEventListener('click', button =>   {
+deleteButton.addEventListener('click', button => {
     calculator.delete();
     calculator.updateDisplay();
 })

@@ -39,6 +39,7 @@ body    {
     grid-column: 1 / -1;
     background-color: rgba(0, 0, 0, .75);
     display: flex;
+    align-items: flex-end;
     justify-content: space-around;
     flex-direction: column;
     padding: 10px;
@@ -48,6 +49,7 @@ body    {
 
 .output .previous_operand   {
     color: rgba(255, 255, 255, .75);
+    font-size: 1.5rem;
 }
 
 .output .current_operand   {
